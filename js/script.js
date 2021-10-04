@@ -47,7 +47,7 @@ function removeMatchingMessages(message) {
   const paragraphs = document.querySelectorAll("p");
 
   for (let info of paragraphs) {
-    if (info.innerHTML === message){
+    if (info.innerHTML === message) {
       info.parentNode.removeChild(info);
     }
   }
@@ -55,7 +55,7 @@ function removeMatchingMessages(message) {
 
 function displayNoResults() {
   const message = "No results found";
-  
+
   removeMatchingMessages(message);
 
   const articles = document.querySelectorAll(".food");
@@ -77,7 +77,7 @@ function displayNoResults() {
 
 function prevSiblings(target) {
   var siblings = [],
-   n = target;
+    n = target;
   while ((n = n.previousElementSibling)) siblings.push(n);
   return siblings;
 }
@@ -113,6 +113,7 @@ function deactivateSection(section) {
 
 function deactivateSiblingSectionsOfParent(section) {
   const allUnselectedParents = getSiblings(section.parentNode);
+
   for (let unselectedParent of allUnselectedParents) {
     if (unselectedParent.firstChild.classList.contains("active")) {
       deactivateSection(unselectedParent.firstChild);
@@ -122,6 +123,7 @@ function deactivateSiblingSectionsOfParent(section) {
 
 function removeActiveClassFromUnselectedSiblings(selectedElement) {
   const allNotSelected = getSiblings(selectedElement);
+
   for (let notSelected of allNotSelected) {
     if (notSelected.classList.contains("active")) {
       notSelected.classList.remove("active");
@@ -294,7 +296,7 @@ for (let course of courses) {
 
   const image = document.createElement("img");
   image.setAttribute("src", "./Images/" + course + ".png");
-  
+
   const name = document.createTextNode(course);
 
   const courseSection = document.createElement("section");
@@ -325,18 +327,18 @@ for (let dish of MENU) {
 
   const caption = document.createElement("figcaption");
   caption.innerText = dish.name;
-  
+
   const ingredientP = document.createElement("p");
   ingredientP.innerHTML = "Ingredients: ";
   for (let i = 0; i < dish.ingredients.length - 1; i++) {
     ingredientP.innerHTML += dish.ingredients[i] + ", ";
   }
   ingredientP.innerHTML += dish.ingredients[dish.ingredients.length - 1];
-  
+
 
   const price = document.createElement("p");
   price.innerHTML = "€" + dish.price;
-  
+
 
   const buy = document.createElement("button");
   buy.classList.add("cartBtn"); // VICTOR ADD THIS CLASS [cartBtn] FOR THE SHOPPING CART
@@ -345,14 +347,14 @@ for (let dish of MENU) {
   });
   buy.innerHTML = "Add to cart";
 
-  figure.appendChild(image); 
+  figure.appendChild(image);
   figure.appendChild(caption);
   dishArticle.appendChild(figure);
   dishArticle.appendChild(ingredientP);
   dishArticle.appendChild(price);
   dishArticle.appendChild(buy);
   document.querySelector(".selectMenu").appendChild(courseList);
-  
+
   const clonedDish = dishArticle.cloneNode(true);
   document.getElementsByClassName("AllSection")[0].appendChild(clonedDish);
   if (dish.type === "Pizza") {
@@ -421,20 +423,20 @@ function disparuFunction() {
 
 // Creation FUNCTION [cartFunction]
 function cartFunction(leMenu) {
-  
+
   // QUANTITY OF ITEM IN THE SHOPPING CART (part1)
   const fnTrouverPizza = (element) => element.name === leMenu.name;
   const elemePizza = arrayRespons.find(fnTrouverPizza)
-  
-  if(elemePizza !== undefined){
-    
+
+  if (elemePizza !== undefined) {
+
     // Modification TOTAL PRICE before modify quantity
     // total = total - (leMenu.price * arrayRespons[indexToModifyQuantity].quantity);
-    
+
     // Modification QUANTITY
     let indexToModifyQuantity = arrayRespons.indexOf(elemePizza);
     let divQuantity = achatsContainer.children[indexToModifyQuantity];
-    
+
     arrayRespons[indexToModifyQuantity].quantity++;
     divQuantity.children[0].innerHTML = arrayRespons[indexToModifyQuantity].quantity;
 
@@ -446,15 +448,15 @@ function cartFunction(leMenu) {
   } else {
     // Copie de element clické dans arrayRespons
     arrayRespons.push(leMenu);
-    
+
     // Creation article + Add class
     const newArticleCart = document.createElement("article");
     newArticleCart.classList.add("article-test");
     newArticleCart.classList.add("article-cart");
-    
+
     // Creation 4 DIV pour flex: nombreitem/img/infos/removeBtn
     const newDivQuantity = document.createElement("div");
-      newDivQuantity.innerHTML = leMenu.quantity;
+    newDivQuantity.innerHTML = leMenu.quantity;
     const newDivImg = document.createElement("div");
     const newDivInfos = document.createElement("div");
     const newDivRemoveBtn = document.createElement("div");
@@ -491,7 +493,7 @@ function cartFunction(leMenu) {
       totalDiv.innerHTML = `Your total: ${total}€`;
 
       leMenu.quantity = 1;
-      
+
       arrayRespons.splice(arrayRespons.indexOf(leMenu), 1);
     });
 
@@ -509,7 +511,7 @@ function cartFunction(leMenu) {
 
     // Deplacement de [newArticleCart] dans <div.achats-container>
     achatsContainer.appendChild(newArticleCart);
-}
+  }
 }
 
 // -- CREATION EVENTLISTENER --
@@ -535,10 +537,12 @@ for (let boutton of clearAll) {
 
     total = 0;
     totalDiv.innerHTML = `Your total: ${total}€`;
-    
+
     arrayRespons.splice(0);
 
   });
 }
 // Creation [eventListener] on #shopping-cart-btn  ===>>>  Function for call disparuFunction
-shoppingCartBtn.addEventListener("click", () => { disparuFunction(); });
+shoppingCartBtn.addEventListener("click", () => {
+  disparuFunction();
+});
