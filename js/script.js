@@ -97,22 +97,30 @@ function getSiblings(target) {
 
 //------------- ACTIVATE AND DEACTIVATE FILTER BUTTONS ------------------------
 
-function activate(e) {
+function activate(section) {
+  section.classList.remove("inactive");
+  section.classList.add("active");
+  section.style.background = "hsl(229, 100%, 76%)";
+  section.style.color = "white";
+}
+
+function deactivate(section) {
+  section.classList.remove("active");
+  section.classList.add("inactive");
+  section.style.background = "inherit";
+  section.style.color = "inherit";
+}
+
+function filterCourses(e) {
   let type = e.target.classList[0];
   const selected = document.getElementsByClassName(type + "Section")[0];
 
   if (e.target.classList.contains("inactive")) {
-    e.target.classList.remove("inactive");
-    e.target.classList.add("active");
+    activate(e.target);
     selected.classList.add("active");
-    e.target.style.background = "hsl(229, 100%, 76%)";
-    e.target.style.color = "white";
   } else if (e.target.classList.contains("active")) {
-    e.target.classList.remove("active");
-    e.target.classList.add("inactive");
+    deactivate(e.target);
     selected.classList.remove("active");
-    e.target.style.background = "inherit";
-    e.target.style.color = "inherit";
   }
 
   let allNotSelected = getSiblings(selected);
@@ -125,10 +133,7 @@ function activate(e) {
   let allUnselectedParents = getSiblings(e.target.parentNode);
   for (let unselectedParent of allUnselectedParents) {
     if (unselectedParent.firstChild.classList.contains("active")) {
-      unselectedParent.firstChild.classList.remove("active");
-      unselectedParent.firstChild.classList.add("inactive");
-      unselectedParent.firstChild.style.background = "inherit";
-      unselectedParent.firstChild.style.color = "inherit";
+      deactivate(unselectedParent.firstChild);
     }
   }
 }
@@ -146,25 +151,19 @@ function removeTypeFromArray(arr, type) {
   return arrWithoutType;
 }
 
-function activateAdditionalFilters(e) {
+function filterAdditionalFilters(e) {
   let type = e.target.classList[0];
   const selected = document.getElementsByClassName(type);
 
   if (e.target.classList.contains("inactive")) {
-    e.target.classList.remove("inactive");
-    e.target.classList.add("active");
-    e.target.style.background = "hsl(229, 100%, 76%)";
-    e.target.style.color = "white";
+    activate(e.target);
     for (let select of selected) {
       if (select.classList.contains("food")) {
         select.classList.add("active");
       }
     }
   } else if (e.target.classList.contains("active")) {
-    e.target.classList.remove("active");
-    e.target.classList.add("inactive");
-    e.target.style.background = "inherit";
-    e.target.style.color = "inherit";
+    deactivate(e.target);
     for (let select of selected) {
       if (select.classList.contains("food")) {
         select.classList.remove("active");
@@ -190,10 +189,7 @@ function activateAdditionalFilters(e) {
   let allUnselected = getSiblings(e.target.parentNode);
   for (let unselectedFilter of allUnselected) {
     if (unselectedFilter.firstChild.classList.contains("active")) {
-      unselectedFilter.firstChild.classList.remove("active");
-      unselectedFilter.firstChild.classList.add("inactive");
-      unselectedFilter.firstChild.style.background = "inherit";
-      unselectedFilter.firstChild.style.color = "inherit";
+      deactivate(unselectedFilter.firstChild);
     }
   }
 }
@@ -201,15 +197,16 @@ function activateAdditionalFilters(e) {
 //------------- DISPLAY WITH MEAL SELECTION (ALL, PIZZA, PASTA, DESSERTS) -------------------------------
 
 function displaySection(e) {
-  activate(e);
+  filterCourses(e);
 
   let type = e.target.classList[0];
   const articles = document.querySelectorAll(".food");
   const filters = document.querySelectorAll("li a");
+
   if (e.target.classList.contains("active")) {
     for (article of articles) {
-      let parent = article.parentNode;
-      if (parent.classList.contains(type + "Section")) {
+      let articleParent = article.parentNode;
+      if (articleParent.classList.contains(type + "Section")) {
         if (
           filters[4].classList.contains("inactive") &&
           filters[5].classList.contains("inactive") &&
@@ -227,8 +224,8 @@ function displaySection(e) {
     }
   } else {
     for (article of articles) {
-      let parent = article.parentNode;
-      if (parent.classList.contains(type + "Section")) {
+      let articleParent = article.parentNode;
+      if (articleParent.classList.contains(type + "Section")) {
         article.style.display = "none";
       }
     }
@@ -240,14 +237,16 @@ function displaySection(e) {
 //------- DISPLAY WITH FILTERS (VEGGIE, SPICY, COMFORT FOOD) -----------
 
 function displayFiltered(e) {
-  activateAdditionalFilters(e);
+  filterAdditionalFilters(e);
+  
   let filter = e.target.classList[0];
   const articles = document.querySelectorAll(".food");
+
   if (e.target.classList[1] === "active") {
     for (article of articles) {
-      let parent = article.parentNode;
+      let articleParent = article.parentNode;
       if (
-        parent.classList.contains("active") &&
+        articleParent.classList.contains("active") &&
         article.classList.contains(filter)
       ) {
         article.style.display = "flex";
@@ -263,8 +262,8 @@ function displayFiltered(e) {
       filters[6].classList.contains("inactive")
     ) {
       for (article of articles) {
-        let parent = article.parentNode;
-        if (parent.classList.contains("active")) {
+        let articleParent = article.parentNode;
+        if (articleParent.classList.contains("active")) {
           article.style.display = "flex";
         }
       }
@@ -279,111 +278,125 @@ function displayFiltered(e) {
 const courses = ["All", "Pizza", "Pasta", "Desserts"];
 
 const courseList = document.createElement("ul");
+document.querySelector(".selectMenu").appendChild(courseList);
 courseList.classList.add("meals");
-const menuSelect = document.querySelector(".selectMenu");
-menuSelect.appendChild(courseList);
 
 const menuArticles = document.createElement("section");
 menuArticles.classList.add("menuArticle");
 
-for (let elem of courses) {
+for (let course of courses) {
   const item = document.createElement("li");
+  courseList.appendChild(item);
+
   const itemBtn = document.createElement("a");
-  const image = document.createElement("img");
-  itemBtn.setAttribute("href", "javascript:void()");
-  itemBtn.classList.add(elem);
+  item.appendChild(itemBtn);
+  itemBtn.classList.add(course);
   itemBtn.classList.add("inactive");
   itemBtn.addEventListener("click", displaySection);
   itemBtn.setAttribute("href", "javascript:void(0);");
-  const name = document.createTextNode(elem);
-  image.setAttribute("src", "./Images/" + elem + ".png");
-  itemBtn.appendChild(image);
-  itemBtn.appendChild(name);
-  item.appendChild(itemBtn);
-  courseList.appendChild(item);
 
-  const course = document.createElement("section");
-  course.classList.add(elem + "Section");
-  document.querySelector(".menuArticle").appendChild(course);
+  const image = document.createElement("img");
+  itemBtn.appendChild(image);
+  image.setAttribute("src", "./Images/" + course + ".png");
+  
+  const name = document.createTextNode(course);
+  itemBtn.appendChild(name);
+
+  const courseSection = document.createElement("section");
+  document.querySelector(".menuArticle").appendChild(courseSection);
+  courseSection.classList.add(course + "Section");
 }
 
-for (let elem of MENU) {
-  const dish = document.createElement("article");
-  dish.classList.add("food");
+for (let dish of MENU) {
+  const dishArticle = document.createElement("article");
+  dishArticle.classList.add("food");
 
-  for (let feature of elem.categories) {
+  for (let feature of dish.categories) {
     if (feature === "Comfort food") {
       feature = "Comfort";
     }
-    dish.classList.add(feature);
+    dishArticle.classList.add(feature);
   }
 
   const figure = document.createElement("figure");
+  dishArticle.appendChild(figure);
+
   const image = document.createElement("img");
-  image.setAttribute("src", elem.image);
-  const caption = document.createElement("figcaption");
-  const name = document.createTextNode(elem.name);
   figure.appendChild(image);
-  caption.appendChild(name);
+  image.setAttribute("src", dish.image);
+
+  const caption = document.createElement("figcaption");
   figure.appendChild(caption);
-  dish.appendChild(figure);
+
+  const name = document.createTextNode(dish.name);
+  caption.appendChild(name);
+  
 
   const info = document.createElement("p");
+  dishArticle.appendChild(info);
   info.innerHTML = "Ingredients: ";
-  for (let i = 0; i < elem.ingredients.length - 1; i++) {
-    info.innerHTML += elem.ingredients[i] + ", ";
+  for (let i = 0; i < dish.ingredients.length - 1; i++) {
+    info.innerHTML += dish.ingredients[i] + ", ";
   }
-  info.innerHTML += elem.ingredients[elem.ingredients.length - 1];
-  dish.appendChild(info);
+  info.innerHTML += dish.ingredients[dish.ingredients.length - 1];
+  
 
   const price = document.createElement("p");
-  price.innerHTML = "€" + elem.price;
-  dish.appendChild(price);
+  dishArticle.appendChild(price);
+  price.innerHTML = "€" + dish.price;
+  
 
   const buy = document.createElement("button");
+  dishArticle.appendChild(buy);
   buy.classList.add("cartBtn"); // VICTOR ADD THIS CLASS [cartBtn] FOR THE SHOPPING CART
   buy.addEventListener("click", () => {
-    cartFunction(elem);
+    cartFunction(dish);
   });
   buy.innerHTML = "Add to cart";
-  dish.appendChild(buy);
-
-  const cloned = dish.cloneNode(true);
-  document.getElementsByClassName("AllSection")[0].appendChild(cloned);
-  if (elem.type === "Pizza") {
-    document.getElementsByClassName("PizzaSection")[0].appendChild(dish);
-  } else if (elem.type === "Pasta") {
-    document.getElementsByClassName("PastaSection")[0].appendChild(dish);
-  } else if (elem.type === "Desserts") {
-    document.getElementsByClassName("DessertsSection")[0].appendChild(dish);
+  
+  const clonedDish = dishArticle.cloneNode(true);
+  document.getElementsByClassName("AllSection")[0].appendChild(clonedDish);
+  if (dish.type === "Pizza") {
+    document.getElementsByClassName("PizzaSection")[0].appendChild(dishArticle);
+  } else if (dish.type === "Pasta") {
+    document.getElementsByClassName("PastaSection")[0].appendChild(dishArticle);
+  } else if (dish.type === "Desserts") {
+    document.getElementsByClassName("DessertsSection")[0].appendChild(dishArticle);
   }
 }
 
 //-------------------------------- EXTRA FILTER BUTTONS (VEGGIE, SPICY, COMFORT FOOD) --------------------------
 
-const filter = ["Vegetarian", "Spicy", "Comfort Food"];
+const filters = ["Vegetarian", "Spicy", "Comfort Food"];
 
 const filterList = document.createElement("ul");
 filterList.classList.add("filters");
+
 const selectorMenu = document.querySelector(".selectMenu");
 selectorMenu.appendChild(filterList);
-for (elem of filter) {
+
+for (let filter of filters) {
   const item = document.createElement("li");
-  const itemBtn = document.createElement("a");
-  const image = document.createElement("img");
-  const name = document.createTextNode(elem);
-  if (elem === "Comfort Food") {
-    elem = "Comfort";
-  }
-  image.setAttribute("src", "./Images/" + elem + ".png");
-  itemBtn.classList.add(elem);
-  itemBtn.classList.add("inactive");
-  itemBtn.appendChild(image);
-  itemBtn.appendChild(name);
-  item.appendChild(itemBtn);
   filterList.appendChild(item);
+
+  const itemBtn = document.createElement("a");
+  item.appendChild(itemBtn);
+  itemBtn.classList.add("inactive");
   itemBtn.setAttribute("href", "javascript:void(0);");
   itemBtn.addEventListener("click", displayFiltered);
+
+
+  const image = document.createElement("img");
+  itemBtn.appendChild(image);
+
+  const name = document.createTextNode(filter);
+  itemBtn.appendChild(name);
+
+  if (filter === "Comfort Food") {
+    filter = "Comfort";
+  }
+  image.setAttribute("src", "./Images/" + filter + ".png");
+  itemBtn.classList.add(filter);
 }
 
 // ------------------------ SHOPPING CART (victor) --------------------------------------
