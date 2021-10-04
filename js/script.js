@@ -39,7 +39,7 @@ const shoppingcartBtn = document.getElementById("shopping-cart-btn");
 const vraiAside = document.getElementById("vraiAside");
 vraiAside.insertBefore(themeBtn, shoppingcartBtn);
 
-// ------------------------ FUNCTIONS --------------------------------------------
+/****************************************** FUNCTIONS *******************************************/
 
 //--------------------- NO RESULTS/NO ARTICLES DISPLAYED -------------------
 
@@ -238,7 +238,7 @@ function displaySection(e) {
 
 function displayFiltered(e) {
   filterAdditionalFilters(e);
-  
+
   let filter = e.target.classList[0];
   const articles = document.querySelectorAll(".food");
 
@@ -278,7 +278,6 @@ function displayFiltered(e) {
 const courses = ["All", "Pizza", "Pasta", "Desserts"];
 
 const courseList = document.createElement("ul");
-document.querySelector(".selectMenu").appendChild(courseList);
 courseList.classList.add("meals");
 
 const menuArticles = document.createElement("section");
@@ -286,25 +285,26 @@ menuArticles.classList.add("menuArticle");
 
 for (let course of courses) {
   const item = document.createElement("li");
-  courseList.appendChild(item);
 
   const itemBtn = document.createElement("a");
-  item.appendChild(itemBtn);
   itemBtn.classList.add(course);
   itemBtn.classList.add("inactive");
   itemBtn.addEventListener("click", displaySection);
   itemBtn.setAttribute("href", "javascript:void(0);");
 
   const image = document.createElement("img");
-  itemBtn.appendChild(image);
   image.setAttribute("src", "./Images/" + course + ".png");
   
   const name = document.createTextNode(course);
-  itemBtn.appendChild(name);
 
   const courseSection = document.createElement("section");
-  document.querySelector(".menuArticle").appendChild(courseSection);
   courseSection.classList.add(course + "Section");
+
+  itemBtn.appendChild(image);
+  itemBtn.appendChild(name);
+  item.appendChild(itemBtn);
+  courseList.appendChild(item);
+  document.querySelector(".menuArticle").appendChild(courseSection);
 }
 
 for (let dish of MENU) {
@@ -319,21 +319,14 @@ for (let dish of MENU) {
   }
 
   const figure = document.createElement("figure");
-  dishArticle.appendChild(figure);
 
   const image = document.createElement("img");
-  figure.appendChild(image);
   image.setAttribute("src", dish.image);
 
   const caption = document.createElement("figcaption");
-  figure.appendChild(caption);
-
-  const name = document.createTextNode(dish.name);
-  caption.appendChild(name);
+  caption.innerText = dish.name;
   
-
   const info = document.createElement("p");
-  dishArticle.appendChild(info);
   info.innerHTML = "Ingredients: ";
   for (let i = 0; i < dish.ingredients.length - 1; i++) {
     info.innerHTML += dish.ingredients[i] + ", ";
@@ -342,17 +335,23 @@ for (let dish of MENU) {
   
 
   const price = document.createElement("p");
-  dishArticle.appendChild(price);
   price.innerHTML = "€" + dish.price;
   
 
   const buy = document.createElement("button");
-  dishArticle.appendChild(buy);
   buy.classList.add("cartBtn"); // VICTOR ADD THIS CLASS [cartBtn] FOR THE SHOPPING CART
   buy.addEventListener("click", () => {
     cartFunction(dish);
   });
   buy.innerHTML = "Add to cart";
+
+  figure.appendChild(image); 
+  figure.appendChild(caption);
+  dishArticle.appendChild(figure);
+  dishArticle.appendChild(info);
+  dishArticle.appendChild(price);
+  dishArticle.appendChild(buy);
+  document.querySelector(".selectMenu").appendChild(courseList);
   
   const clonedDish = dishArticle.cloneNode(true);
   document.getElementsByClassName("AllSection")[0].appendChild(clonedDish);
@@ -369,35 +368,36 @@ for (let dish of MENU) {
 
 const filters = ["Vegetarian", "Spicy", "Comfort Food"];
 
+const selectorMenu = document.querySelector(".selectMenu");
+
 const filterList = document.createElement("ul");
 filterList.classList.add("filters");
 
-const selectorMenu = document.querySelector(".selectMenu");
-selectorMenu.appendChild(filterList);
-
 for (let filter of filters) {
   const item = document.createElement("li");
-  filterList.appendChild(item);
 
   const itemBtn = document.createElement("a");
-  item.appendChild(itemBtn);
   itemBtn.classList.add("inactive");
   itemBtn.setAttribute("href", "javascript:void(0);");
   itemBtn.addEventListener("click", displayFiltered);
 
-
   const image = document.createElement("img");
-  itemBtn.appendChild(image);
 
   const name = document.createTextNode(filter);
-  itemBtn.appendChild(name);
 
   if (filter === "Comfort Food") {
     filter = "Comfort";
   }
   image.setAttribute("src", "./Images/" + filter + ".png");
   itemBtn.classList.add(filter);
+
+
+  itemBtn.appendChild(image);
+  itemBtn.appendChild(name);
+  item.appendChild(itemBtn);
+  filterList.appendChild(item);
 }
+selectorMenu.appendChild(filterList);
 
 // ------------------------ SHOPPING CART (victor) --------------------------------------
 let arrayRespons = [];
