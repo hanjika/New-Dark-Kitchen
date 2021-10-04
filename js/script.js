@@ -97,45 +97,52 @@ function getSiblings(target) {
 
 //------------- ACTIVATE AND DEACTIVATE FILTER BUTTONS ------------------------
 
-function activate(section) {
+function activateSection(section) {
   section.classList.remove("inactive");
   section.classList.add("active");
   section.style.background = "hsl(229, 100%, 76%)";
   section.style.color = "white";
 }
 
-function deactivate(section) {
+function deactivateSection(section) {
   section.classList.remove("active");
   section.classList.add("inactive");
   section.style.background = "inherit";
   section.style.color = "inherit";
 }
 
-function filterCourses(e) {
-  let type = e.target.classList[0];
-  const selected = document.getElementsByClassName(type + "Section")[0];
-
-  if (e.target.classList.contains("inactive")) {
-    activate(e.target);
-    selected.classList.add("active");
-  } else if (e.target.classList.contains("active")) {
-    deactivate(e.target);
-    selected.classList.remove("active");
+function deactivateSiblingSectionsOfParent(section) {
+  const allUnselectedParents = getSiblings(section.parentNode);
+  for (let unselectedParent of allUnselectedParents) {
+    if (unselectedParent.firstChild.classList.contains("active")) {
+      deactivateSection(unselectedParent.firstChild);
+    }
   }
+}
 
-  let allNotSelected = getSiblings(selected);
+function removeActiveClassFromUnselectedSiblings(selectedElement) {
+  const allNotSelected = getSiblings(selectedElement);
   for (let notSelected of allNotSelected) {
     if (notSelected.classList.contains("active")) {
       notSelected.classList.remove("active");
     }
   }
+}
 
-  let allUnselectedParents = getSiblings(e.target.parentNode);
-  for (let unselectedParent of allUnselectedParents) {
-    if (unselectedParent.firstChild.classList.contains("active")) {
-      deactivate(unselectedParent.firstChild);
-    }
+
+function activateOrDeactivateCourses(e) {
+  let type = e.target.classList[0];
+  const selected = document.getElementsByClassName(type + "Section")[0];
+
+  if (e.target.classList.contains("inactive")) {
+    activateSection(e.target);
+    selected.classList.add("active");
+  } else if (e.target.classList.contains("active")) {
+    deactivateSection(e.target);
+    selected.classList.remove("active");
   }
+  removeActiveClassFromUnselectedSiblings(selected);
+  deactivateSiblingSectionsOfParent(e.target);
 }
 
 function removeTypeFromArray(arr, type) {
@@ -151,19 +158,19 @@ function removeTypeFromArray(arr, type) {
   return arrWithoutType;
 }
 
-function filterAdditionalFilters(e) {
+function activateOrDeactivateAdditionalFilters(e) {
   let type = e.target.classList[0];
   const selected = document.getElementsByClassName(type);
 
   if (e.target.classList.contains("inactive")) {
-    activate(e.target);
+    activateSection(e.target);
     for (let select of selected) {
       if (select.classList.contains("food")) {
         select.classList.add("active");
       }
     }
   } else if (e.target.classList.contains("active")) {
-    deactivate(e.target);
+    deactivateSection(e.target);
     for (let select of selected) {
       if (select.classList.contains("food")) {
         select.classList.remove("active");
@@ -185,19 +192,13 @@ function filterAdditionalFilters(e) {
       }
     }
   }
-
-  let allUnselected = getSiblings(e.target.parentNode);
-  for (let unselectedFilter of allUnselected) {
-    if (unselectedFilter.firstChild.classList.contains("active")) {
-      deactivate(unselectedFilter.firstChild);
-    }
-  }
+  deactivateSiblingSectionsOfParent(e.target);
 }
 
 //------------- DISPLAY WITH MEAL SELECTION (ALL, PIZZA, PASTA, DESSERTS) -------------------------------
 
-function displaySection(e) {
-  filterCourses(e);
+function displayCourseSection(e) {
+  activateOrDeactivateCourses(e);
 
   let type = e.target.classList[0];
   const articles = document.querySelectorAll(".food");
@@ -230,14 +231,13 @@ function displaySection(e) {
       }
     }
   }
-
   displayNoResults();
 }
 
 //------- DISPLAY WITH FILTERS (VEGGIE, SPICY, COMFORT FOOD) -----------
 
-function displayFiltered(e) {
-  filterAdditionalFilters(e);
+function displayFilteredDishes(e) {
+  activateOrDeactivateAdditionalFilters(e);
 
   let filter = e.target.classList[0];
   const articles = document.querySelectorAll(".food");
@@ -289,7 +289,7 @@ for (let course of courses) {
   const itemBtn = document.createElement("a");
   itemBtn.classList.add(course);
   itemBtn.classList.add("inactive");
-  itemBtn.addEventListener("click", displaySection);
+  itemBtn.addEventListener("click", displayCourseSection);
   itemBtn.setAttribute("href", "javascript:void(0);");
 
   const image = document.createElement("img");
@@ -326,12 +326,12 @@ for (let dish of MENU) {
   const caption = document.createElement("figcaption");
   caption.innerText = dish.name;
   
-  const info = document.createElement("p");
-  info.innerHTML = "Ingredients: ";
+  const ingredientP = document.createElement("p");
+  ingredientP.innerHTML = "Ingredients: ";
   for (let i = 0; i < dish.ingredients.length - 1; i++) {
-    info.innerHTML += dish.ingredients[i] + ", ";
+    ingredientP.innerHTML += dish.ingredients[i] + ", ";
   }
-  info.innerHTML += dish.ingredients[dish.ingredients.length - 1];
+  ingredientP.innerHTML += dish.ingredients[dish.ingredients.length - 1];
   
 
   const price = document.createElement("p");
@@ -348,7 +348,7 @@ for (let dish of MENU) {
   figure.appendChild(image); 
   figure.appendChild(caption);
   dishArticle.appendChild(figure);
-  dishArticle.appendChild(info);
+  dishArticle.appendChild(ingredientP);
   dishArticle.appendChild(price);
   dishArticle.appendChild(buy);
   document.querySelector(".selectMenu").appendChild(courseList);
@@ -379,7 +379,7 @@ for (let filter of filters) {
   const itemBtn = document.createElement("a");
   itemBtn.classList.add("inactive");
   itemBtn.setAttribute("href", "javascript:void(0);");
-  itemBtn.addEventListener("click", displayFiltered);
+  itemBtn.addEventListener("click", displayFilteredDishes);
 
   const image = document.createElement("img");
 
