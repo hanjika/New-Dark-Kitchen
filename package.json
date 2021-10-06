@@ -1,0 +1,25 @@
+{
+  "name": "dark-kitchen-2",
+  "version": "1.0.0",
+  "description": "- [Victor](https://github.com/VictorT-GitHub). - [Hanna](https://github.com/hanjika). - [Youssef](https://github.com/YoussefAkanni).",
+  "source": "src/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "start": "parcel",
+    "build": "rm -rf dist && parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanjika/New-Dark-Kitchen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hanjika/New-Dark-Kitchen/issues"
+  },
+  "homepage": "https://github.com/hanjika/New-Dark-Kitchen#readme",
+  "devDependencies": {
+    "@parcel/transformer-image": "^2.0.0-rc.0",
+    "parcel": "^2.0.0-rc.0"
+  }
+}
