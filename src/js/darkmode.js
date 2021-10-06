@@ -1,4 +1,4 @@
-export function darkThemeActivateButtonsAndLinks() {
+export function darkThemeActivateButtonsAndLinks(themeBtn) {
     const allBtn = document.querySelectorAll("button");
     const allBtnLi = document.querySelectorAll("a");
 
@@ -10,17 +10,16 @@ export function darkThemeActivateButtonsAndLinks() {
         btnLi.classList.toggle("darkTheme");
     }
 
-    darkThemeAesthetics();
+    darkThemeAesthetics(themeBtn);
 }
 
-function darkThemeAesthetics() {
+function darkThemeAesthetics(themeBtn) {
     if (themeBtn.classList.contains("darkTheme")) {
-        themeBtn.innerHTML = "Go Dark";
-        logo.setAttribute('src', require('../Images/logo.png'));
-    } else {
         themeBtn.innerHTML = "Go Light";
         logo.setAttribute('src', require('../Images/LogoNoir-removebg-preview.png'));
+    } else {
+        themeBtn.innerHTML = "Go Dark";
+        logo.setAttribute('src', require('../Images/logo.png'));
     }
-    
     document.body.classList.toggle("darkTheme");
 }

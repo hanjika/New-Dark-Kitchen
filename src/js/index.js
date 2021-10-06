@@ -1,6 +1,6 @@
 import MENU from "./menu"
 import { displayCourseSection, displayFilteredDishes } from "./displaysections"
-import { disparuFunction, cartFunction, clearShoppingList } from "./shoppingcart"
+import { disparuFunction, cartFunction, emptyOrBuyShoppingList } from "./shoppingcart"
 import { darkThemeActivateButtonsAndLinks } from "./darkmode"
 
 // ------------------------ DARK/LIGHT THEME BTN (victor)-------------------------------
@@ -8,18 +8,15 @@ let logo = document.querySelector('#logo');
 
 // Creation [themeBtn] Light/Dark Theme
 const themeBtn = document.createElement("button");
-
-// Add CLASS to the [themeBtn]
 themeBtn.classList.add("themeBtn");
-themeBtn.classList.add("darkTheme");
-
-// Add Text in the [themeBtn]
 themeBtn.innerHTML = "Go Dark";
 
 // Add [addEventListener] + [function] flechee qui switch theme dark/light
 if (themeBtn) {
-  themeBtn.addEventListener("click", darkThemeActivateButtonsAndLinks);
-}
+  themeBtn.addEventListener("click", () => {
+    darkThemeActivateButtonsAndLinks(themeBtn);
+  });
+};
 
 // Deplacement [themeBtn] in <aside>
 const shoppingcartBtn = document.getElementById("shopping-cart-btn");
@@ -184,7 +181,7 @@ let shoppingCartBtn = document.querySelector("#shopping-cart-btn");
 for (let button of clearAll) {
   if (button) {
     button.addEventListener("click", (e) => {
-      clearShoppingList(e);
+      emptyOrBuyShoppingList(e);
     });
   }
 }
