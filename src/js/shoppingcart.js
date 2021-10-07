@@ -22,12 +22,11 @@ export function cartFunction(dish) {
   // QUANTITY OF ITEM IN THE SHOPPING CART (part1)
   const fnTrouverPizza = (element) => element.name === dish.name;
   const elemePizza = arrayRespons.find(fnTrouverPizza)
-  console.log(elemePizza);
 
   if (elemePizza !== undefined) {
-    addFirstOfDishtoCart(dish, elemePizza);
+    moreThanOneoftypeInCart(dish, elemePizza);
   } else {
-    moreThanOneInCart(dish);
+    addFirstOfTypetoCart(dish);
   }
 }
 
@@ -43,16 +42,14 @@ export function emptyOrBuyShoppingList(e) {
     refreshShoppingList();
 };
 
-function removeItemFromCart(itemInCart, dish) {
-    itemInCart.remove();
+/*function removeItemFromCart(dish, arrayRespons) {
+  total = total - (dish.price * dish.quantity);
+  totalDiv.innerHTML = `Your total: ${total}€`;
 
-    total = total - (dish.price * dish.quantity);
-    totalDiv.innerHTML = `Your total: ${total}€`;
+  dish.quantity = 1;
 
-    dish.quantity = 1;
-
-    arrayRespons.splice(arrayRespons.indexOf(dish), 1);
-}
+  arrayRespons.splice(arrayRespons.indexOf(dish), 1);
+}*/
 
 function refreshShoppingList() {
     let articleTest = document.querySelectorAll(".article-test"); // ? QUESTION POUR LE COACH
@@ -68,7 +65,74 @@ function refreshShoppingList() {
     arrayRespons.splice(0);
 }
 
-function addFirstOfDishtoCart(dish, elemePizza) {
+function addFirstOfTypetoCart(dish) {
+  // Copie de element clické dans arrayRespons
+  arrayRespons.push(dish);
+
+  // Creation article + Add class
+  const newArticleCart = document.createElement("article");
+  newArticleCart.classList.add("article-test");
+  newArticleCart.classList.add("article-cart");
+
+  // Creation 4 DIV pour flex: nombreitem/img/infos/removeBtn
+  const newDivQuantity = document.createElement("div");
+  newDivQuantity.innerHTML = dish.quantity;
+  const newDivImg = document.createElement("div");
+  const newDivInfos = document.createElement("div");
+  const newDivRemoveBtn = document.createElement("div");
+
+  // Creation image pour article + Add src
+  const newImageCart = document.createElement("img");
+  newImageCart.setAttribute("src", dish.image);
+  newImageCart.classList.add("article-cart");
+
+  // Creation titre pour article
+  const newTitleCart = document.createElement("h6");
+  newTitleCart.innerHTML = dish.name;
+  newTitleCart.classList.add("article-cart");
+
+  // Creation prix pour article + Add the item PRICE to the TOTAL
+  const newPrixCart = document.createElement("h6");
+  newPrixCart.innerHTML = "€" + dish.price;
+  newPrixCart.classList.add("article-cart");
+  total += dish.price;
+  totalDiv.innerHTML = `Your total: ${total}€`;
+
+  // Creation removeItem btn
+  const removeItemBtn = document.createElement("button");
+  removeItemBtn.innerText = "Remove";
+  removeItemBtn.classList.add("article-cart");
+  if (document.body.classList.contains('darkTheme')) {
+    removeItemBtn.classList.add('darkTheme');
+  }
+  removeItemBtn.addEventListener("click", () => {
+    newArticleCart.remove();
+
+    total = total - (dish.price * dish.quantity);
+    totalDiv.innerHTML = `Your total: ${total}€`;
+
+    dish.quantity = 1;
+
+    arrayRespons.splice(arrayRespons.indexOf(dish), 1);
+  });
+
+  // Deplacement img + titre + prix + removeBtn dans la DIV correspondante
+  newDivImg.appendChild(newImageCart);
+  newDivInfos.appendChild(newTitleCart);
+  newDivInfos.appendChild(newPrixCart);
+  newDivRemoveBtn.appendChild(removeItemBtn);
+
+  // Deplacement des 4 DIV dans [newArticleCart]
+  newArticleCart.appendChild(newDivQuantity);
+  newArticleCart.appendChild(newDivImg);
+  newArticleCart.appendChild(newDivInfos);
+  newArticleCart.appendChild(newDivRemoveBtn);
+
+  // Deplacement de [newArticleCart] dans <div.achats-container>
+  achatsContainer.appendChild(newArticleCart);
+}
+
+function moreThanOneoftypeInCart(dish, elemePizza) {
     // Modification TOTAL PRICE before modify quantity
     // total = total - (dish.price * arrayRespons[indexToModifyQuantity].quantity);
 
@@ -83,72 +147,4 @@ function addFirstOfDishtoCart(dish, elemePizza) {
     // total = total + (dish.price * arrayRespons[indexToModifyQuantity].quantity);
     total += dish.price;
     totalDiv.innerHTML = `Your total: ${total}€`;
-}
-
-function moreThanOneInCart(dish) {
-    // Copie de element clické dans arrayRespons
-    arrayRespons.push(dish);
-
-    // Creation article + Add class
-    const newArticleCart = document.createElement("article");
-    newArticleCart.classList.add("article-test");
-    newArticleCart.classList.add("article-cart");
-
-    // Creation 4 DIV pour flex: nombreitem/img/infos/removeBtn
-    const newDivQuantity = document.createElement("div");
-    newDivQuantity.innerHTML = dish.quantity;
-    const newDivImg = document.createElement("div");
-    const newDivInfos = document.createElement("div");
-    const newDivRemoveBtn = document.createElement("div");
-
-    // Creation image pour article + Add src
-    const newImageCart = document.createElement("img");
-    newImageCart.setAttribute("src", dish.image);
-    newImageCart.classList.add("article-cart");
-
-    // Creation titre pour article
-    const newTitleCart = document.createElement("h6");
-    newTitleCart.innerHTML = dish.name;
-    newTitleCart.classList.add("article-cart");
-
-    // Creation prix pour article + Add the item PRICE to the TOTAL
-    const newPrixCart = document.createElement("h6");
-    newPrixCart.innerHTML = "€" + dish.price;
-    newPrixCart.classList.add("article-cart");
-    total += dish.price;
-    totalDiv.innerHTML = `Your total: ${total}€`;
-
-    // Creation removeItem btn
-    const removeItemBtn = document.createElement("button");
-    removeItemBtn.innerText = "Remove";
-    removeItemBtn.classList.add("article-cart");
-    if (document.body.classList.contains('darkTheme')) {
-      removeItemBtn.classList.add('darkTheme')
-    }
-    removeItemBtn.addEventListener("click", () => {
-
-      newArticleCart.remove();
-
-      total = total - (dish.price * dish.quantity);
-      totalDiv.innerHTML = `Your total: ${total}€`;
-
-      dish.quantity = 1;
-
-      arrayRespons.splice(arrayRespons.indexOf(dish), 1);
-    });
-
-    // Deplacement img + titre + prix + removeBtn dans la DIV correspondante
-    newDivImg.appendChild(newImageCart);
-    newDivInfos.appendChild(newTitleCart);
-    newDivInfos.appendChild(newPrixCart);
-    newDivRemoveBtn.appendChild(removeItemBtn);
-
-    // Deplacement des 4 DIV dans [newArticleCart]
-    newArticleCart.appendChild(newDivQuantity);
-    newArticleCart.appendChild(newDivImg);
-    newArticleCart.appendChild(newDivInfos);
-    newArticleCart.appendChild(newDivRemoveBtn);
-
-    // Deplacement de [newArticleCart] dans <div.achats-container>
-    achatsContainer.appendChild(newArticleCart);
 }
