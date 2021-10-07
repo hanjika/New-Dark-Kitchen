@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/hanjika/New-Dark-Kitchen/issues"
   },
-  "homepage": "https://github.com/hanjika/New-Dark-Kitchen#readme",
+  "homepage": "https://hanjika.github.io/modern-javascript-application",
   "devDependencies": {
     "@parcel/transformer-image": "^2.0.0-rc.0",
     "gh-pages": "^3.2.3",
