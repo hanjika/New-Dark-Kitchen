@@ -2,7 +2,7 @@
   "name": "dark-kitchen-2",
   "version": "1.0.0",
   "description": "- [Victor](https://github.com/VictorT-GitHub). - [Hanna](https://github.com/hanjika). - [Youssef](https://github.com/YoussefAkanni).",
-  "source": "src/index.html",
+  "source": "index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "start": "parcel",
