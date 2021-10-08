@@ -6,8 +6,8 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "start": "parcel",
-    "build": "rm -rf dist && parcel build src/index.html --public-url /modern-javascript-application/",
-    "deploy": "parcel build && gh-pages -d dist"
+    "build": "rm -rf dist && parcel build src/index.html --public-url ./",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/hanjika/New-Dark-Kitchen/issues"
   },
-  "homepage": "https://hanjika.github.io/modern-javascript-application",
+  "homepage": "https://hanjika.github.io/modern-javascript-application/",
   "devDependencies": {
     "@parcel/transformer-image": "^2.0.0-rc.0",
     "ansi-html": "0.0.7",
