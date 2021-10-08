@@ -1,0 +1,62 @@
+button {
+    font-family: "Red hat display";
+    text-decoration: none;
+    cursor: pointer;
+    width: 70px;
+    height: 50px;
+    border-radius: 19px;
+    border: none;
+    margin: 0;
+    p {
+        margin: 0px;
+        margin-top: 15px;
+    }
+}
+
+.buttonArrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > p, img {
+        margin: 0;
+    }
+}
+
+.themeBtn {
+    font-size: 0.9rem;
+    height: 65px;
+    width: 65px;
+    border-radius: 100%;
+    background: $lightColor;
+    color: $darkColor;
+}
+
+#shopping-cart-btn {
+    font-size: 1rem;
+    padding: 0;
+    height: 65px;
+    width: 130px;
+    border-radius: 999px;
+    margin: 0px 40px 15px;
+}
+
+.cartBtn {
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    max-width: 100%;
+    width: 40%;
+    margin: auto;
+    align-items: center;
+    background: $lightmodeCartBtn;
+    color: black;
+    border-radius: 0.875rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    box-shadow: 5px 5px 15px 5px hsl(249deg 100% 50% / 25%);
+    transition: 0.4s;
+    &:hover {
+        background-color: black;
+        color: white;
+    }
+}

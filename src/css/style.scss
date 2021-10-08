@@ -1,0 +1,325 @@
+@import './variables';
+@import './buttons';
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+@mixin flexColumnCenter {
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin flexWrapJustify($wrap, $direction, $justify) {
+  display: flex;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+  justify-content: $justify;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: "Red hat display";
+}
+
+aside {
+  width: 100%;
+  position: absolute;
+  float: left;
+  margin: 14px 14px 14px 0px;
+  padding-left: 15px;
+  top: auto;
+}
+
+header {
+  @include flexCenter();
+  object-fit: cover;
+  width: 100%;
+  height: 100vh;
+  img {
+    justify-self: center;
+    margin-right: 15px;
+  }
+}
+
+figure {
+  margin: 0;
+}
+figcaption {
+  margin: 10px;
+  font-weight: 900;
+}
+
+article {
+  display: none;
+  @include flexColumnCenter();
+  text-align: center;
+  margin: 40px 10px;
+  border: 1px solid rgb(173, 173, 173);
+  img {
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+    object-fit: cover;
+    width: 400px;
+    height: 300px;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  p {
+    margin: 20px -10px;
+  }
+}
+
+.noResults {
+  text-align: center;
+}
+
+h3 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: 900;
+}
+
+.special {
+  position: relative;
+  z-index: 10;
+  margin: 50px;
+  margin-top: 0;
+  @include flexWrapJustify(wrap, row, center);
+}
+
+.textSpecial {
+  margin: 35px;
+  margin-right: 140px;
+}
+
+.pizzaSpecial {
+  background-image: url(../Images/feuilledor.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 435px;
+  height: 185px;
+  border-radius: 12px;
+  box-shadow: 8px 8px 20px rgb(65, 65, 65);
+  > p {
+    margin-left: 30px;
+    color: white;
+    text-shadow: 1px 0 0 rgb(109, 109, 109), -1px 0 0 rgb(110, 110, 110),
+      0 1px 0 rgb(109, 109, 109), 0 -1px 0 rgb(109, 109, 109),
+      1px 1px rgb(109, 109, 109), -1px -1px 0 rgb(109, 109, 109),
+      1px -1px 0 rgb(109, 109, 109), -1px 1px 0 rgb(109, 109, 109);
+  
+    font-size: 25px;
+  }
+}
+
+.buttonHere {
+  @include flexWrapJustify(nowrap, row, flex-end);
+  margin-top: 60px;
+  margin-right: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li a {
+  display: block;
+  padding: 15px 20px;
+  text-decoration: none;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  border-radius: 20px;
+  color: black;
+  &:hover {
+    background-color: hsl(261, 100%, 58%);
+    color: var(--lightColor);
+  }
+}
+
+.mainMenu {
+  display: flex;
+  flex-direction: column;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.selectMenu {
+  display: flex;
+  @include flexColumnCenter();
+}
+
+.menuArticle {
+  display: flex;
+  flex-direction: column;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 40px;
+}
+
+.AllSection,
+.PizzaSection,
+.PastaSection,
+.DessertsSection {
+  @include flexWrapJustify(wrap, row, space-between);
+}
+
+/* SHOPPING CART */
+#vraiAside {
+  width: 100vw;
+  @include flexWrapJustify(nowrap, row, space-between);
+}
+
+#asideCache {
+  @include flexWrapJustify(nowrap, row, flex-end);
+  margin-right: 20px;
+}
+
+#shopping-cart-section {
+  background: rgba(0, 0, 0, 0.1);
+  width: 350px;
+  &.disparu {
+    overflow: hidden;
+    width: 0px;
+  }
+}
+
+h6 {
+  font-size: 0.8rem;
+}
+
+#cart-list-btns {
+  @include flexWrapJustify(nowrap, row, space-around);
+}
+
+#total-price,
+#cart-list-btns {
+  padding: 5px 0px;
+  margin: 10px 17px;
+}
+
+article.article-cart {
+  @include flexWrapJustify(nowrap, row, space-around);
+  padding: 5px 0px;
+  margin: 0;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+img.article-cart {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+#achats-container {
+  height: 240px;
+  overflow: auto;
+}
+/*  */
+
+nav > ul {
+  @include flexWrapJustify(nowrap, row, space-around);
+}
+
+/* DARK/LIGHT MODE */
+
+.darkTheme {
+  background: $darkColor;
+  color: $lightColor;
+}
+
+body.darkTheme #shopping-cart-section {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+body.darkTheme article.article-cart {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.cartBtn.darkTheme {
+  background: $customPurple;
+  &:hover {
+    background: white;
+    color: black;
+  }
+}
+
+a.darkTheme {
+  background: none;
+}
+/*  */
+
+@media screen and (max-width: 768px) {
+  body {
+    width: 103vw;
+  }
+
+  header {
+    height: 400px;
+    img {
+      width: 350px;
+    }
+  }
+
+  main {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  section.mainMenu {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menuArticle {
+    max-width: 720px;
+    padding: 0;
+    margin: auto;
+  }
+
+  .AllSection,
+  .PizzaSection,
+  .PastaSection,
+  .DessertsSection,
+  article img {
+    width: 100%;
+  }
+  #shopping-cart-btn {
+    margin: 15px 0px;
+  }
+
+  #achats-container {
+    height: 220px;
+    overflow: auto;
+  }
+
+  .special {
+    text-align: center;
+  }
+
+  .textSpecial {
+    margin: 10px 0px;
+  }
+}

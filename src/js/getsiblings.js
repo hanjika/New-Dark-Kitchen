@@ -1,14 +1,15 @@
 export function getSiblings(elem) {
   // create an empty array
   const siblings = [];
+  const parent = elem.parentNode;
 
   // if no parent, return empty list
-  if (!elem.parentNode) {
+  if (!parent) {
     return siblings;
   }
 
   // first child of the parent node
-  let sibling = elem.parentNode.firstElementChild;
+  let sibling = parent.firstElementChild;
 
   // loop through next siblings until `null`
   do {

@@ -15,7 +15,8 @@ function deactivateSection(section) {
 }
 
 function deactivateSiblingSectionsOfParent(section) {
-  const allUnselectedParents = getSiblings(section.parentNode);
+  const parent = section.parentNode;
+  const allUnselectedParents = getSiblings(parent);
 
   for (const unselectedParent of allUnselectedParents) {
     if (unselectedParent.firstChild.classList.contains('active')) {

@@ -21,6 +21,7 @@
   "homepage": "https://hanjika.github.io/modern-javascript-application/",
   "devDependencies": {
     "@parcel/transformer-image": "^2.0.0-rc.0",
+    "@parcel/transformer-sass": "^2.0.0-rc.0",
     "ansi-html": "0.0.7",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
