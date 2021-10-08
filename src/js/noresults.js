@@ -1,9 +1,9 @@
-//--------------------- NO RESULTS/NO ARTICLES DISPLAYED -------------------
+// --------------------- NO RESULTS/NO ARTICLES DISPLAYED -------------------
 
 function removeMatchingMessages(message) {
-  const paragraphs = document.querySelectorAll("p");
+  const paragraphs = document.querySelectorAll('p');
 
-  for (let info of paragraphs) {
+  for (const info of paragraphs) {
     if (info.innerHTML === message) {
       info.parentNode.removeChild(info);
     }
@@ -11,21 +11,21 @@ function removeMatchingMessages(message) {
 }
 
 export function displayNoResults() {
-  const message = "No results found";
+  const message = 'No results found';
 
   removeMatchingMessages(message);
 
-  const articles = document.querySelectorAll(".food");
+  const articles = document.querySelectorAll('.food');
   let yes = 0;
-  for (let article of articles) {
-    if (article.style.display !== "none") {
+  for (const article of articles) {
+    if (article.style.display !== 'none') {
       yes++;
     }
   }
   if (yes === 0) {
-    const p = document.createElement("p");
-    p.classList.add("noResults");
-    p.innerHTML = "No results found";
-    document.querySelector(".menuArticle").append(p);
+    const p = document.createElement('p');
+    p.classList.add('noResults');
+    p.innerHTML = 'No results found';
+    document.querySelector('.menuArticle').append(p);
   }
 }
