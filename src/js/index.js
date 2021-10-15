@@ -49,7 +49,7 @@ for (const course of courses) {
   }
 
   const image = document.createElement('img');
-  image.setAttribute('src', `../Images/${course}.png`);
+  image.setAttribute('src', `Images/${course}.png`);
 
   const name = document.createTextNode(course);
 
@@ -142,7 +142,7 @@ for (let filter of filters) {
   }
 
   const image = document.createElement('img');
-  image.setAttribute('src', `../Images/${filter}.png`);
+  image.setAttribute('src', `Images/${filter}.png`);
 
   const name = document.createTextNode(filter);
 
