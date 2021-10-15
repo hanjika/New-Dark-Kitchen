@@ -1,4 +1,4 @@
-import MENU from './menu';
+import { MENU } from './menu';
 import { displayCourseSection, displayFilteredDishes } from './displaysections';
 import {
   disparuFunction,
@@ -49,15 +49,7 @@ for (const course of courses) {
   }
 
   const image = document.createElement('img');
-  if (course === 'All') {
-    image.setAttribute('src', require('../Images/All.png'));
-  } else if (course === 'Pizza') {
-    image.setAttribute('src', require('../Images/Pizza.png'));
-  } else if (course === 'Pasta') {
-    image.setAttribute('src', require('../Images/Pasta.png'));
-  } else if (course === 'Desserts') {
-    image.setAttribute('src', require('../Images/Desserts.png'));
-  }
+  image.setAttribute('src', `../Images/${course}.png`);
 
   const name = document.createTextNode(course);
 
@@ -118,16 +110,11 @@ for (const dish of MENU) {
   document.querySelector('.selectMenu').appendChild(courseList);
 
   const clonedDish = dishArticle.cloneNode(true);
+  const dishType = dish.type;
   document.getElementsByClassName('AllSection')[0].appendChild(clonedDish);
-  if (dish.type === 'Pizza') {
-    document.getElementsByClassName('PizzaSection')[0].appendChild(dishArticle);
-  } else if (dish.type === 'Pasta') {
-    document.getElementsByClassName('PastaSection')[0].appendChild(dishArticle);
-  } else if (dish.type === 'Desserts') {
-    document
-      .getElementsByClassName('DessertsSection')[0]
-      .appendChild(dishArticle);
-  }
+  document
+    .getElementsByClassName(`${dishType}Section`)[0]
+    .appendChild(dishArticle);
 }
 
 // -------------------------------- CREATING EXTRA FILTER BUTTONS (VEGGIE, SPICY, COMFORT FOOD) --------------------------
@@ -155,13 +142,7 @@ for (let filter of filters) {
   }
 
   const image = document.createElement('img');
-  if (filter === 'Vegetarian') {
-    image.setAttribute('src', require('../Images/Vegetarian.png'));
-  } else if (filter === 'Spicy') {
-    image.setAttribute('src', require('../Images/Spicy.png'));
-  } else if (filter === 'Comfort') {
-    image.setAttribute('src', require('../Images/Comfort.png'));
-  }
+  image.setAttribute('src', `../Images/${filter}.png`);
 
   const name = document.createTextNode(filter);
 

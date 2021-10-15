@@ -1,13 +1,10 @@
 function darkThemeAesthetics(themeBtn, logo) {
   if (themeBtn.classList.contains('darkTheme')) {
     themeBtn.innerHTML = 'Go Light';
-    logo.setAttribute(
-      'src',
-      require('../Images/LogoNoir-removebg-preview.png')
-    );
+    logo.setAttribute('src', '../Images/LogoNoir-removebg-preview.png');
   } else {
     themeBtn.innerHTML = 'Go Dark';
-    logo.setAttribute('src', require('../Images/logo.png'));
+    logo.setAttribute('src', '../Images/logo.png');
   }
   document.body.classList.toggle('darkTheme');
 }

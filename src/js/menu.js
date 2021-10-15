@@ -1,11 +1,11 @@
-const MENU = [
+export const MENU = [
   {
     type: 'Pizza',
     name: 'Sarda',
     categories: ['Spicy'],
     ingredients: ['mozzarella', 'pecorino cheese', 'spicy salami'],
     price: 9,
-    image: require('../Images/sarda.jpeg'),
+    image: '../Images/sarda.jpeg',
     quantity: 1,
   },
   {
@@ -14,7 +14,7 @@ const MENU = [
     categories: [],
     ingredients: ['mozzarella', 'anchovies', 'capers', 'oregano'],
     price: 9,
-    image: require('../Images/Pizza-Romana-1-800x477.jpeg'),
+    image: '../Images/Pizza-Romana-1-800x477.jpeg',
     quantity: 1,
   },
   {
@@ -23,7 +23,7 @@ const MENU = [
     categories: ['Vegetarian'],
     ingredients: ['mozzarella', 'tomato', 'oregano'],
     price: 8,
-    image: require('../Images/napoletana.jpeg'),
+    image: '../Images/napoletana.jpeg',
     quantity: 1,
   },
   {
@@ -32,7 +32,7 @@ const MENU = [
     categories: ['Comfort food'],
     ingredients: ['artichokes', 'tomatoes', 'basil', 'mushrooms', 'ham'],
     price: 11,
-    image: require('../Images/four-seasons-pizza.jpeg'),
+    image: '../Images/four-seasons-pizza.jpeg',
     quantity: 1,
   },
   {
@@ -41,7 +41,7 @@ const MENU = [
     categories: ['Comfort food'],
     ingredients: ['egg', 'lardons', 'Pecorino romano'],
     price: 8,
-    image: require('../Images/pasta-carbonara_b-864x413.jpeg'),
+    image: '../Images/pasta-carbonara_b-864x413.jpeg',
     quantity: 1,
   },
   {
@@ -50,7 +50,7 @@ const MENU = [
     categories: ['Comfort food'],
     ingredients: ['beef', 'chopped tomatoes', 'garlic'],
     price: 8,
-    image: require('../Images/bolognaise.jpeg'),
+    image: '../Images/bolognaise.jpeg',
     quantity: 1,
   },
   {
@@ -59,7 +59,7 @@ const MENU = [
     categories: ['Comfort food'],
     ingredients: ['mozzarella', 'tomato', 'beef'],
     price: 10,
-    image: require('../Images/lasagna-bolognese.jpeg'),
+    image: '../Images/lasagna-bolognese.jpeg',
     quantity: 1,
   },
   {
@@ -68,7 +68,7 @@ const MENU = [
     categories: ['Vegetarian'],
     ingredients: ['pecorino romano', 'black pepper'],
     price: 9,
-    image: require('../Images/Spaghetti-Cacio-e-Pepe-Pecorino-and-black-pepper-spaghetti_1200x800.jpeg'),
+    image: '../Images/Spaghetti-Cacio-e-Pepe-Pecorino-and-black-pepper-spaghetti_1200x800.jpeg',
     quantity: 1,
   },
 
@@ -78,7 +78,7 @@ const MENU = [
     categories: ['Desserts', 'Vegetarian'],
     ingredients: ['honey', 'egg whites', 'nuts'],
     price: 4,
-    image: require('../Images/Torrone Semifreddo.jpeg'),
+    image: '../Images/Torrone Semifreddo.jpeg',
     quantity: 1,
   },
   {
@@ -87,7 +87,7 @@ const MENU = [
     categories: ['Desserts', 'Vegetarian'],
     ingredients: ['nut milk', 'honey', 'strawberry jam'],
     price: 10,
-    image: require('../Images/pannacotta.jpeg'),
+    image: '../Images/pannacotta.jpeg',
     quantity: 1,
   },
   {
@@ -96,9 +96,7 @@ const MENU = [
     categories: ['Desserts', 'Vegetarian'],
     ingredients: ['dark chocolate', 'egg', 'nuts'],
     price: 9,
-    image: require('../Images/biscotti.jpeg'),
+    image: '../Images/biscotti.jpeg',
     quantity: 1,
   },
 ];
-
-export default MENU;

@@ -1,13 +1,17 @@
-# Group project "Dark Kitchen"
+# Group project "Dark Kitchen" (Refactored version)
 
 - [Victor](https://github.com/VictorT-GitHub).
 - [Hanna](https://github.com/hanjika).
 - [Youssef](https://github.com/YoussefAkanni).
 
-> Language used
+### Languages used
 
 - HTML
 - CSS
 - JS
 
-## Preview
+### Changes
+
+- Refactored 
+- Rebuilt using NPM and Parcel
+- Partially cleaned up with ESLint and Prettier

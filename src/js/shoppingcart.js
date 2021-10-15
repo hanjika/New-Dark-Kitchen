@@ -15,14 +15,14 @@ export function disparuFunction() {
   achatsContainer.parentNode.classList.toggle('disparu');
 }
 
-/*  function removeItemFromCart(dish, arrayRespons) {
-  total = total - (dish.price * dish.quantity);
+function removeItemFromCart(dish) {
+  total -= dish.price * dish.quantity;
   totalDiv.innerHTML = `Your total: ${total}€`;
 
   dish.quantity = 1;
 
   arrayRespons.splice(arrayRespons.indexOf(dish), 1);
-} */
+}
 
 function refreshShoppingList() {
   const articleTest = document.querySelectorAll('.article-test'); // ? QUESTION POUR LE COACH
@@ -80,13 +80,7 @@ function addFirstOfTypetoCart(dish) {
   }
   removeItemBtn.addEventListener('click', () => {
     newArticleCart.remove();
-
-    total -= dish.price * dish.quantity;
-    totalDiv.innerHTML = `Your total: ${total}€`;
-
-    dish.quantity = 1;
-
-    arrayRespons.splice(arrayRespons.indexOf(dish), 1);
+    removeItemFromCart(dish);
   });
 
   // Deplacement img + titre + prix + removeBtn dans la DIV correspondante
