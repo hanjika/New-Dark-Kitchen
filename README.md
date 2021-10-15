@@ -7,11 +7,12 @@
 ### Languages used
 
 - HTML
-- CSS
+- CSS/SASS
 - JS
 
-### Changes
+### Changes since original version
 
 - Refactored 
 - Rebuilt using NPM and Parcel
+- Added SASS extension
 - Partially cleaned up with ESLint and Prettier

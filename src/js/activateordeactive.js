@@ -85,10 +85,10 @@ export function activateOrDeactivateAdditionalFilters(e) {
   const arrWithoutSelectedType = removeTypeFromArray(arr, type);
 
   for (const unselectedType of arrWithoutSelectedType) {
-    articles = document.querySelectorAll('.food');
+    const articles = document.querySelectorAll('.food');
     for (const article of articles) {
       if (article.classList.contains(unselectedType)) {
-        article.classList.toggle('active');
+        article.classList.remove('active');
       }
     }
   }
